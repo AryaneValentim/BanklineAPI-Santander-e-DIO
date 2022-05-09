@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import com.dio.santander.bankline.api.repositories.MovimentacaoRepository;
 import com.dio.santander.bankline.api.service.MovimentacaoService;
 
 @RestController
-@RequestMapping("/movimentacao")
+@RequestMapping("/movimentacoes")
 public class MovimentacaoController {
 
 	@Autowired
@@ -27,6 +28,11 @@ public class MovimentacaoController {
 	@GetMapping
 	public List<Movimentacao> getAll() {
 		return movimentacaoRepository.findAll();
+	}
+	
+	@GetMapping("/{idConta}")
+	public List<Movimentacao> findAll(@PathVariable("idConta") Integer idConta){
+		return movimentacaoRepository.findByIdConta(idConta);
 	}
 
 	@PostMapping
